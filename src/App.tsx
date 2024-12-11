@@ -6,7 +6,7 @@ import CartPage from './pages/CartPage';
 import UserProfilePage from './pages/UserProfilePage';
 import LoginPage from './pages/LoginPage.tsx';
 import ProfilePage from "./pages/ProfilePage.tsx";
-import UserDashboard from "./pages/User-Dashboard.tsx";
+import UserDashboard from "./pages/user-dashboard.tsx";
 
 const App = () => {
     return (
@@ -15,7 +15,7 @@ const App = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/shop" element={<ShopPage />} />
-                <Route path="/dashboard" element={<UserDashboard />} />
+                <Route path="/UserDashboard" element={<UserDashboard />} />
                 <Route path="/profile" element={<ProfilePage />} />
 
                 {/* Protected Routes */}

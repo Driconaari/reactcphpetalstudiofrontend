@@ -1,0 +1,247 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffd1dc, #b3e5fc);
+    color: #444;
+}
+
+.login-container h4 {
+    text-align: left;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size:smaller;
+    color: #6a5acd;
+}
+.login-container {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffd6ff;
+    color: #2b2d42;
+    border-bottom: 6px solid #c8b6ff;
+    text-shadow: 1px 1px 1px #c8b6ff;
+    animation-name: example;
+    animation-duration: 6s;
+}
+
+.login-container:hover {
+    background-color: #f1c0e8;
+}
+
+.login-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-left {
+    width: 50%;
+    overflow: hidden;
+}
+
+.card-left .image-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-right {
+    width: 50%;
+    padding: 50px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    color: #c8b6ff;
+    text-align: center;
+}
+
+.welcome {
+    font-size: 20px;
+    margin-top: -10px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes example {
+    from {background-color:#c8b6ff ;}
+    to {background-color: #ffd6ff;}
+}
+
+.border-blue {
+    border: 5px solid blue;
+}
+
+.form-group {
+    margin-bottom: 16px;
+
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    color: #f76d82;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.actions .btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #f76d82, #f4a5b3);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease, transform 0.3s ease;
+}
+
+.actions .btn:hover {
+    background: linear-gradient(135deg, #f76d82, #f7929e);
+    transform: scale(1.05);
+}
+
+.or-divider {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #999;
+}
+
+.create-account {
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.create-account a {
+    color: #6a5acd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.create-account a:hover {
+    color: #0056b3;
+}
+.image-credit {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.image-credit a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.image-credit a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    /* Stacking the login card vertically on small screens */
+    .login-card {
+        flex-direction: column;
+    }
+
+    /* Hiding the left side image on small screens */
+    .card-left {
+        display: none;
+    }
+
+    /* Making the right side form full-width */
+    .card-right {
+        width: 100%;
+        padding: 30px 72px;
+    }
+
+    /* Adjusting title size for smaller screens */
+    .title {
+        font-size: 28px;
+    }
+
+    /* Adjusting welcome text size for smaller screens */
+    .welcome {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    /* Adjusting input padding for smaller screens */
+    .input-group input {
+        padding: 8px;
+    }
+
+    /* Adjusting button padding and font size for smaller screens */
+    .actions .btn,
+    .google-signin .google-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+#message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+#dashboardButton {
+    margin-left: 10px;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
