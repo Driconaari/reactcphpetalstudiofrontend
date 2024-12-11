@@ -4,13 +4,16 @@ import ShopPage from './pages/ShopPage';
 import CartPage from './pages/CartPage';
 import UserProfilePage from './pages/UserProfilePage';
 import LoginPage from './pages/LoginPage.tsx';
+import ProfilePage from "./pages/ProfilePage.tsx";
 
 const App = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/shop" element={<ShopPage />} />
+                <Route path="/shop" element={<ShopPage bouquets={[]} loading={false} />} />
+                <Route path="/profile" element={<ProfilePage />} />
+
 
                 {/* Protected Routes */}
                 <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />

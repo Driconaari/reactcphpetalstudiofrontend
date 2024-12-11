@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isAuthenticated } from '../utils/auth';  // Import isAuthenticated
+import { getToken } from '../utils/auth';  // Get token utility function
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated()) {  // Use the isAuthenticated function
-            navigate('/login');
+        const token = getToken();
+        if (!token) {
+            navigate('/login');  // Redirect to login page if no token
         }
     }, [navigate]);
 
-    return <>{children}</>;
+    return <>{children}</>;  // Render children if token exists
 };
 
 export default ProtectedRoute;

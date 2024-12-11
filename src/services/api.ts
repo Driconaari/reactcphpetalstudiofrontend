@@ -1,16 +1,20 @@
-export const fetchBouquets = async () => {
-    const response = await fetch('http://localhost:8080/api/bouquets');
-    if (!response.ok) throw new Error('Failed to fetch bouquets');
-    return response.json();
-};
+const API_BASE_URL = 'http://localhost:8080/api';  // Replace with your backend URL
 
-export const fetchProfile = async (token: string) => {
-    const response = await fetch('http://localhost:8080/api/user/profile', {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+// Fetch bouquets from API
+export const fetchBouquets = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/bouquets`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch bouquets');
         }
-    });
-    if (!response.ok) throw new Error('Failed to fetch profile');
-    return response.json();
+
+        return response.json();  // Return bouquet data
+    } catch (error) {
+        console.error('Error fetching bouquets:', error);
+        throw error;
+    }
 };

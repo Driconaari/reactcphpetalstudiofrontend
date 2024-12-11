@@ -1,4 +1,4 @@
-import { useCart } from '../../contexts/CartContext';
+import { useCart } from '../contexts/CartContext';
 
 interface Bouquet {
     id: number;

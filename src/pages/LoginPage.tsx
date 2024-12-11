@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setToken } from '../utils/auth';  // Import the setToken function
+import { login } from '../services/auth';  // Import login service
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -10,23 +10,14 @@ const LoginPage = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Make API call for login (replace with your API URL)
-        const response = await fetch('http://localhost:8080/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const { token } = data;  // Assuming the token is returned in the response
-
-            setToken(token);  // Store the JWT token in localStorage
-            navigate('/shop');  // Redirect to the shop page after successful login
-        } else {
+        try {
+            const token = await login(username, password); // Call the login service
+            if (token) {
+                navigate('/shop');  // Redirect to shop page on successful login
+            }
+        } catch (error) {
             alert('Login failed');
+            console.error('Login error:', error);
         }
     };
 

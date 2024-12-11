@@ -1,30 +1,25 @@
-// auth.ts
-const AUTH_TOKEN_KEY = 'jwt_token';  // Key for storing the token in localStorage
-
-// Check if the user is authenticated (i.e., if a token exists)
-export const isAuthenticated = (): boolean => {
-    const token = localStorage.getItem(AUTH_TOKEN_KEY);
-    return token !== null;
+// Store token in localStorage
+export const setToken = (token: string) => {
+    localStorage.setItem('jwt_token', token);
 };
 
-// Get the JWT token from localStorage
+// Get token from localStorage
 export const getToken = (): string | null => {
-    return localStorage.getItem(AUTH_TOKEN_KEY);
+    return localStorage.getItem('jwt_token');
 };
 
-// Set the JWT token in localStorage (called after successful login)
-export const setToken = (token: string): void => {
-    localStorage.setItem(AUTH_TOKEN_KEY, token);
+// Remove token from localStorage
+export const removeToken = () => {
+    localStorage.removeItem('jwt_token');
 };
 
-// Remove the JWT token from localStorage (called on logout)
-export const removeToken = (): void => {
-    localStorage.removeItem(AUTH_TOKEN_KEY);
-};
-
-// This could be used for validating if the token is expired (if the token contains expiration)
+// Check if token is expired (you may need a proper JWT decode library like jwt-decode)
 export const isTokenExpired = (token: string): boolean => {
-    const payload = JSON.parse(atob(token.split('.')[1])); // Decoding JWT
-    const currentTime = Math.floor(Date.now() / 1000);  // Get current time in seconds
-    return payload.exp < currentTime;
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decoding JWT payload
+        const expiration = payload.exp * 1000; // Convert to milliseconds
+        return Date.now() > expiration;
+    } catch (error) {
+        return true; // If something goes wrong, consider the token expired
+    }
 };

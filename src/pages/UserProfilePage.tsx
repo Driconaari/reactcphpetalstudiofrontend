@@ -1,6 +1,6 @@
-import { fetchProfile } from '../services/auth';
-import ProtectedRoute from '../components/ProtectedRoute';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
+import { fetchProfile } from '../services/auth';  // Import fetchProfile service
+import ProtectedRoute from '../components/ProtectedRoute';  // ProtectedRoute to ensure user is authenticated
 
 interface Profile {
     name: string;
@@ -13,9 +13,7 @@ const UserProfilePage = () => {
     useEffect(() => {
         const getProfile = async () => {
             try {
-                const token = localStorage.getItem('jwt_token');
-                if (!token) throw new Error('No token found');
-                const data = await fetchProfile(token);
+                const data = await fetchProfile();  // Fetch user profile
                 setProfile(data);
             } catch (error) {
                 console.error('Error fetching profile:', error);
@@ -26,13 +24,13 @@ const UserProfilePage = () => {
     }, []);
 
     return (
-        <ProtectedRoute>
+        <ProtectedRoute>  {/* Protect profile page from unauthorized access */}
             <div className="container">
                 {profile ? (
                     <div>
                         <h2>{profile.name}</h2>
                         <p>Email: {profile.email}</p>
-                        {/* Add more profile information here */}
+                        {/* Render other profile information here */}
                     </div>
                 ) : (
                     <p>Loading profile...</p>
