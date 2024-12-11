@@ -7,16 +7,10 @@ interface CartItem {
     quantity: number;
 }
 
-interface Bouquet {
-    id: number;
-    name: string;
-    price: number;
-}
-
 interface CartContextType {
     cart: CartItem[];
     cartCount: number;
-    addToCart: (item: Bouquet) => void;
+    addToCart: (item: CartItem) => void;
     removeFromCart: (id: number) => void;
     clearCart: () => void;
     updateCartCount: () => void;
@@ -40,7 +34,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [cartCount, setCartCount] = useState(0);
 
-    const addToCart = (item: Bouquet) => {
+    const addToCart = (item: CartItem) => {
         setCart((prevCart) => {
             const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
             if (existingItem) {
@@ -64,7 +58,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
     const updateCartCount = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/cart/count', {
+            const response = await fetch('http://localhost:8080/shop/cart/count', {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
                 },

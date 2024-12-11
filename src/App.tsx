@@ -21,6 +21,7 @@ const App = () => {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path={"/payment"} element={<PaymentPage />} />
+                <Route path="/cart" element={<CartPage />} />
 
                 {/* Protected Routes */}
                 <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
