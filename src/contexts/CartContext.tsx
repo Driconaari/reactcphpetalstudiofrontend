@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
-export interface CartItem {
+interface CartItem {
     id: number;
     name: string;
     price: number;
@@ -15,9 +15,11 @@ interface Bouquet {
 
 interface CartContextType {
     cart: CartItem[];
+    cartCount: number;
     addToCart: (item: Bouquet) => void;
     removeFromCart: (id: number) => void;
     clearCart: () => void;
+    updateCartCount: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -36,6 +38,7 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
+    const [cartCount, setCartCount] = useState(0);
 
     const addToCart = (item: Bouquet) => {
         setCart((prevCart) => {
@@ -59,11 +62,31 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         setCart([]);
     };
 
+    const updateCartCount = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/cart/count', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch cart count');
+            }
+            const data = await response.json();
+            setCartCount(data.count);
+        } catch (error) {
+            console.error('Error fetching cart count:', error);
+        }
+    };
+
+    useEffect(() => {
+        updateCartCount();
+    }, [cart]);
+
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, cartCount, addToCart, removeFromCart, clearCart, updateCartCount }}>
             {children}
         </CartContext.Provider>
     );
 };
 
-// src/contexts/CartContext.ts

@@ -24,8 +24,13 @@ const LoginPage: React.FC = () => {
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            navigate('/dashboard');
-        } catch (err) {
+
+            if (data.role === 'admin') {
+                navigate('/admin-dashboard');
+            } else {
+                navigate('/user-dashboard');
+            }
+        } catch {
             setError('Invalid username or password');
         }
     };
@@ -56,4 +61,3 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
-
