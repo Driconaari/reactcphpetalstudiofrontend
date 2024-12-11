@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import BouquetCard from '../components/BouquetCard';
 import Navbar from '../components/NavBar';
 import { useCart } from '../contexts/CartContext';
+import { getToken, isTokenExpired } from '../utils/auth';
 
 interface Bouquet {
     id: number;
@@ -24,24 +25,30 @@ const ShopPage: React.FC = () => {
     }, []);
 
     const fetchBouquets = async () => {
+        const token = getToken();
+
+        if (!token || isTokenExpired(token)) {
+            setError('Session expired. Please log in again.');
+            window.location.href = '/login';
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:8080/api/bouquets', {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
+
             if (!response.ok) {
-                if (response.status === 403) {
-                    throw new Error('You need to be logged in to view bouquets.');
-                }
-                throw new Error('Failed to fetch bouquets. Please try again.');
+                throw new Error('Failed to fetch bouquets.');
             }
+
             const data = await response.json();
             setBouquets(data);
-            setError(null);
         } catch (error) {
             console.error('Error fetching bouquets:', error);
-            setError(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setError('Could not fetch bouquets.');
         }
     };
 
