@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getToken } from '../utils/auth';  // Get token utility function
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-    const navigate = useNavigate();
+interface ProtectedRouteProps {
+    children: React.ReactNode;
+}
 
-    useEffect(() => {
-        const token = getToken();
-        if (!token) {
-            navigate('/login');  // Redirect to login page if no token
-        }
-    }, [navigate]);
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+    const token = localStorage.getItem('token');
 
-    return <>{children}</>;  // Render children if token exists
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return <>{children}</>;
 };
 
 export default ProtectedRoute;
+

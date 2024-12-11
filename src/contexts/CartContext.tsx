@@ -1,17 +1,23 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-interface CartItem {
+export interface CartItem {
     id: number;
     name: string;
     price: number;
     quantity: number;
 }
 
+interface Bouquet {
+    id: number;
+    name: string;
+    price: number;
+}
+
 interface CartContextType {
-    cartItems: CartItem[];
-    addToCart: (item: CartItem) => void;
+    cart: CartItem[];
+    addToCart: (item: Bouquet) => void;
     removeFromCart: (id: number) => void;
-    getCartCount: () => number;
+    clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -24,31 +30,40 @@ export const useCart = () => {
     return context;
 };
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+interface CartProviderProps {
+    children: ReactNode;
+}
 
-    const addToCart = (item: CartItem) => {
-        setCartItems((prevItems) => {
-            const existingItem = prevItems.find((i) => i.id === item.id);
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+    const [cart, setCart] = useState<CartItem[]>([]);
+
+    const addToCart = (item: Bouquet) => {
+        setCart((prevCart) => {
+            const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
             if (existingItem) {
-                return prevItems.map((i) =>
-                    i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+                return prevCart.map((cartItem) =>
+                    cartItem.id === item.id
+                        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                        : cartItem
                 );
             }
-            return [...prevItems, item];
+            return [...prevCart, { ...item, quantity: 1 }];
         });
     };
 
     const removeFromCart = (id: number) => {
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+        setCart((prevCart) => prevCart.filter((item) => item.id !== id));
     };
 
-    const getCartCount = () => {
-        return cartItems.reduce((total, item) => total + item.quantity, 0);
+    const clearCart = () => {
+        setCart([]);
     };
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, getCartCount }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
             {children}
         </CartContext.Provider>
     );
 };
+
+// src/contexts/CartContext.ts

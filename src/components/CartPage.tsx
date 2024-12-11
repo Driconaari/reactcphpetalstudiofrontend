@@ -1,16 +1,16 @@
 import React from 'react';
-import { useCart } from '../contexts/CartContext';
+import { useCart, CartItem } from '../contexts/CartContext';
 import { Link } from 'react-router-dom';
 
 const CartPage: React.FC = () => {
     const { cart, removeFromCart } = useCart();
 
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = cart.reduce((sum, item: CartItem) => sum + item.price * item.quantity, 0);
 
     return (
         <div>
             <h2>Your Cart</h2>
-            {cart.map((item) => (
+            {cart.map((item: CartItem) => (
                 <div key={item.id}>
                     <h3>{item.name}</h3>
                     <p>Price: ${item.price}</p>

@@ -6,7 +6,7 @@ import CartPage from './pages/CartPage';
 import UserProfilePage from './pages/UserProfilePage';
 import LoginPage from './pages/LoginPage.tsx';
 import ProfilePage from "./pages/ProfilePage.tsx";
-import UserDashboard from "./pages/user-dashboard.tsx";
+import UserDashboard from "./pages/UserDashboard.tsx";
 
 const App = () => {
     return (
