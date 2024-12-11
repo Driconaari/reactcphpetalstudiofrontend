@@ -18,8 +18,24 @@ const BouquetCard: React.FC<{ bouquet: Bouquet }> = ({ bouquet }) => {
     const handleAddToCart = async () => {
         setIsAdding(true);
         try {
-            // Simulate API call to backend
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const response = await fetch('http://localhost:8080/api/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
+                },
+                body: JSON.stringify({
+                    bouquetId: bouquet.id,
+                    quantity: 1,
+                }),
+            });
+
+            if (!response.ok) {
+                if (response.status === 403) {
+                    throw new Error('You need to be logged in to add items to the cart.');
+                }
+                throw new Error('Failed to add item to cart. Please try again.');
+            }
 
             addToCart({
                 id: bouquet.id,
@@ -30,7 +46,7 @@ const BouquetCard: React.FC<{ bouquet: Bouquet }> = ({ bouquet }) => {
             toast.success('Item added to cart successfully!');
         } catch (error) {
             console.error('Error adding item to cart:', error);
-            toast.error('Failed to add item to cart. Please try again.');
+            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
         } finally {
             setIsAdding(false);
         }

@@ -15,6 +15,7 @@ interface Bouquet {
 
 const ShopPage: React.FC = () => {
     const [bouquets, setBouquets] = useState<Bouquet[]>([]);
+    const [error, setError] = useState<string | null>(null);
     const { updateCartCount } = useCart();
 
     useEffect(() => {
@@ -24,14 +25,23 @@ const ShopPage: React.FC = () => {
 
     const fetchBouquets = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/bouquets');
+            const response = await fetch('http://localhost:8080/api/bouquets', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
+                },
+            });
             if (!response.ok) {
-                throw new Error('Failed to fetch bouquets');
+                if (response.status === 403) {
+                    throw new Error('You need to be logged in to view bouquets.');
+                }
+                throw new Error('Failed to fetch bouquets. Please try again.');
             }
             const data = await response.json();
             setBouquets(data);
+            setError(null);
         } catch (error) {
             console.error('Error fetching bouquets:', error);
+            setError(error instanceof Error ? error.message : 'An unexpected error occurred');
         }
     };
 
@@ -61,13 +71,22 @@ const ShopPage: React.FC = () => {
 
                     {/* Product Listing */}
                     <div className="col-lg-9">
-                        <div className="row" id="bouquet-list">
-                            {bouquets.map(bouquet => (
-                                <div key={bouquet.id} className="col-md-4 mb-4">
-                                    <BouquetCard bouquet={bouquet} />
-                                </div>
-                            ))}
-                        </div>
+                        {error && (
+                            <div className="alert alert-danger" role="alert">
+                                {error}
+                            </div>
+                        )}
+                        {bouquets.length > 0 ? (
+                            <div className="row" id="bouquet-list">
+                                {bouquets.map(bouquet => (
+                                    <div key={bouquet.id} className="col-md-4 mb-4">
+                                        <BouquetCard bouquet={bouquet} />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p>No bouquets available at the moment.</p>
+                        )}
                     </div>
                 </div>
             </div>
