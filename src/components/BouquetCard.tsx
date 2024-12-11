@@ -1,3 +1,4 @@
+import React from 'react';
 import { useCart } from '../contexts/CartContext';
 
 interface Bouquet {
@@ -6,6 +7,7 @@ interface Bouquet {
     description: string;
     price: number;
     imageUrl: string;
+    featured: boolean;
 }
 
 const BouquetCard: React.FC<{ bouquet: Bouquet }> = ({ bouquet }) => {
@@ -21,16 +23,20 @@ const BouquetCard: React.FC<{ bouquet: Bouquet }> = ({ bouquet }) => {
     };
 
     return (
-        <div className="card">
-            <img src={bouquet.imageUrl} alt={bouquet.name} />
+        <div className="card product-card position-relative">
+            {bouquet.featured && <span className="most-popular">Most Popular</span>}
+            <img src={bouquet.imageUrl} className="card-img-top" alt={bouquet.name} />
             <div className="card-body">
-                <h5>{bouquet.name}</h5>
-                <p>{bouquet.description}</p>
-                <p>${bouquet.price}</p>
-                <button onClick={handleAddToCart}>Add to Cart</button>
+                <h5 className="card-title">{bouquet.name}</h5>
+                <p className="card-text">{bouquet.description}</p>
+                <p className="card-text text-success">${bouquet.price.toFixed(2)}</p>
+                <button className="btn btn-primary add-to-cart" onClick={handleAddToCart}>
+                    Add to Cart
+                </button>
             </div>
         </div>
     );
 };
 
 export default BouquetCard;
+

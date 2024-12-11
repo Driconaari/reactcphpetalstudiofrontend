@@ -16,7 +16,7 @@ const PaymentPage: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
         },
         body: JSON.stringify({
           cardNumber,
@@ -31,40 +31,49 @@ const PaymentPage: React.FC = () => {
       }
 
       clearCart();
-      navigate('/dashboard');
+      navigate('/user-dashboard');
     } catch (error) {
       console.error('Error processing payment:', error);
     }
   };
 
   return (
-    <div>
-      <h2>Payment</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
-          placeholder="Card Number"
-          required
-        />
-        <input
-          type="text"
-          value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
-          placeholder="MM/YY"
-          required
-        />
-        <input
-          type="text"
-          value={cvv}
-          onChange={(e) => setCvv(e.target.value)}
-          placeholder="CVV"
-          required
-        />
-        <button type="submit">Pay Now</button>
-      </form>
-    </div>
+      <div className="container mt-5">
+        <h2>Payment</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <input
+                type="text"
+                className="form-control"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+                placeholder="Card Number"
+                required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+                type="text"
+                className="form-control"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
+                placeholder="MM/YY"
+                required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+                type="text"
+                className="form-control"
+                value={cvv}
+                onChange={(e) => setCvv(e.target.value)}
+                placeholder="CVV"
+                required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">Pay Now</button>
+        </form>
+      </div>
   );
 };
 
