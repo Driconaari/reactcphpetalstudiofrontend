@@ -1,8 +1,25 @@
-// src/pages/HomePage.tsx
+import  { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/shop.css';
 
 const HomePage = () => {
+    useEffect(() => {
+        const token = localStorage.getItem("jwtToken"); // Retrieve token from localStorage
+        fetch("http://localhost:8080/api/protected-route", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }, []);
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light">
