@@ -22,7 +22,7 @@ const BouquetCard: React.FC<{ bouquet: Bouquet }> = ({ bouquet }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
                 },
                 body: JSON.stringify({
                     bouquetId: bouquet.id,
@@ -73,4 +73,3 @@ const BouquetCard: React.FC<{ bouquet: Bouquet }> = ({ bouquet }) => {
 };
 
 export default BouquetCard;
-
