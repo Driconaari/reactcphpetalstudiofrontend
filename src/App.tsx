@@ -6,6 +6,7 @@ import CartPage from './pages/CartPage';
 import UserProfilePage from './pages/UserProfilePage';
 import LoginPage from './pages/LoginPage.tsx';
 import ProfilePage from "./pages/ProfilePage.tsx";
+import UserDashboard from "./pages/User-Dashboard.tsx";
 
 const App = () => {
     return (
@@ -13,7 +14,8 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/shop" element={<ShopPage bouquets={[]} loading={false} />} />
+                <Route path="/shop" element={<ShopPage />} />
+                <Route path="/dashboard" element={<UserDashboard />} />
                 <Route path="/profile" element={<ProfilePage />} />
 
                 {/* Protected Routes */}
