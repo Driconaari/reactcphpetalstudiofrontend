@@ -1,0 +1,45 @@
+/* ProfilePage.css */
+
+/* Container for the profile page */
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header style */
+.profile-container h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Profile information styles */
+.profile-container p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+/* Add some spacing for each detail */
+.profile-container p span {
+    font-weight: bold;
+}
+
+/* Styling for error or loading messages */
+.profile-container .error-message,
+.profile-container .loading-message {
+    text-align: center;
+    color: #e74c3c; /* Red for errors */
+    font-weight: bold;
+}
+
+/* Center loading spinner or text */
+.profile-container .loading-message {
+    color: #3498db; /* Blue for loading */
+}

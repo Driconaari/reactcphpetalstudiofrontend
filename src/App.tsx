@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../src/components/ProtectedRoute';
+import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import CartPage from './pages/CartPage';
 import UserProfilePage from './pages/UserProfilePage';
@@ -10,7 +11,7 @@ const App = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Navigate to="/shop" />} />
+                <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/shop" element={<ShopPage bouquets={[]} loading={false} />} />
                 <Route path="/profile" element={<ProfilePage />} />

@@ -1,0 +1,307 @@
+/* General Styling */
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: #333;
+}
+/* Header Styling */
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff6f91;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar-brand:hover {
+    color: #ff4f73;
+    text-decoration: none;
+}
+
+.nav-link {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    color: #333;
+    margin-left: 15px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff6f91;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    color: #ff6f91;
+}
+
+.filter-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.filter-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-button:hover {
+    background-color: #f9f9f9;
+    border-color: #bbb;
+}
+
+.color-indicators {
+    display: flex;
+    gap: 5px;
+}
+
+.color-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+.color-red { background-color: #d64545; }
+.color-pink { background-color: #f7a6b1; }
+.color-burgundy { background-color: #5e2c3f; }
+.color-purple { background-color: #9251df; }
+.color-yellow { background-color: #f8ce4e; }
+.color-light { background-color: #f9f2dc; }
+
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.card-text.text-success {
+    color: #28a745;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #ff6f91;
+    border: none;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #ff4f73;
+}
+
+footer {
+    background-color: #fff;
+    color: #333;
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+}
+
+/* Banner Styling */
+.most-popular {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #0e4c16; /* Pink banner color */
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+/* General Styles */
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.navbar {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+.filter-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.filter-buttons a {
+    display: block;
+    padding: 10px;
+    background-color: #f1f1f1;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.filter-buttons a:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Color scheme indicators */
+.color-indicators {
+    display: flex;
+    gap: 5px;
+}
+
+.color-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.color-red {
+    background-color: red;
+}
+
+.color-pink {
+    background-color: pink;
+}
+
+.color-burgundy {
+    background-color: #800020;
+}
+
+.color-purple {
+    background-color: purple;
+}
+
+.color-yellow {
+    background-color: yellow;
+}
+
+.color-light {
+    background-color: lightblue;
+}
+
+/* Product Card */
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+.most-popular {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff6f61;
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.text-success {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+footer {
+    background-color: #f8f9fa;
+    font-size: 0.875rem;
+    color: #555;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

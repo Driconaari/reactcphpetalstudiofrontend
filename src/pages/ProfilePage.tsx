@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchProfile } from '../services/auth';  // Import fetchProfile service
-import './ProfilePage.css';  // Import styles
+import './styles/ProfilePage.css';  // Import styles
 
 interface Profile {
   username: string;

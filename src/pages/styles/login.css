@@ -1,0 +1,163 @@
+/* General body styling */
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #fff5f7; /* Subtle light pink background */
+    margin: 0;
+    padding: 0;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Header styling */
+header {
+    background-color: rgba(136, 85, 96, 0.28); /* Vibrant pink header */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for the header */
+}
+
+header p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    margin: 5px 0 0;
+    letter-spacing: 1px;
+    opacity: 0.8; /* Softer subtext */
+}
+
+/* Main container styling */
+.container {
+    background-color: #ffffff; /* White card background */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 400px;
+    margin: 50px auto; /* Centers the box with spacing from header */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Clean shadow */
+    padding: 40px;
+    text-align: center;
+    position: relative;
+}
+
+/* Logo styling */
+.logo {
+    margin-bottom: 20px;
+}
+
+.logo img {
+    max-width: 150px;
+}
+
+/* Header styling inside the container */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #94d3a2; /* Light green focus */
+    box-shadow: 0 0 5px rgba(148, 211, 162, 0.4); /* Subtle green glow */
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: rgba(255, 111, 145, 0.55);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: rgba(255, 79, 115, 0.41);
+    transform: translateY(-2px);
+}
+
+#dashboardButton {
+    background-color: #94d3a2;
+    display: none;
+}
+
+#dashboardButton:hover {
+    background-color: #82c090;
+}
+
+/* Message box styling */
+#message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Footer styling */
+.footer {
+    margin-top: 30px;
+    font-size: 0.85rem;
+    color: #aaa;
+    text-align: center;
+}
+
+.footer a {
+    color: #ff6f91;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

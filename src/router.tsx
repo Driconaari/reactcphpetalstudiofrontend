@@ -7,7 +7,7 @@ const RouterConfig = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/shop" element={<ShopPage />} />
+                <Route path="/shop" element={<ShopPage bouquets={[]} loading={false} />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/profile" element={<UserProfilePage />} />
             </Routes>
