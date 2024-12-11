@@ -3,7 +3,7 @@ import ProtectedRoute from '../src/components/ProtectedRoute';
 import ShopPage from './pages/ShopPage';
 import CartPage from './pages/CartPage';
 import UserProfilePage from './pages/UserProfilePage';
-import LoginPage from '../src/pages/loginpage.tsx';
+import LoginPage from './pages/LoginPage.tsx';
 
 const App = () => {
     return (
