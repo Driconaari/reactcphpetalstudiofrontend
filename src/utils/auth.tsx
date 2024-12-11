@@ -1,11 +1,20 @@
-// auth.ts
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
+
 interface TokenPayload {
     exp: number;
     [key: string]: unknown; // Other potential claims
 }
 
+const isValidJwt = (token: string): boolean => {
+    const parts = token.split('.');
+    return parts.length === 3;
+};
+
 export const isTokenExpired = (token: string): boolean => {
+    if (!isValidJwt(token)) {
+        return true; // Consider invalid tokens as expired
+    }
+
     try {
         const payload: TokenPayload = jwtDecode(token);
         return Date.now() > payload.exp * 1000;

@@ -24,33 +24,35 @@ const ShopPage: React.FC = () => {
         updateCartCount();
     }, []);
 
-    const fetchBouquets = async () => {
-        const token = getToken();
+ const fetchBouquets = async () => {
+    const token = getToken();
 
-        if (!token || isTokenExpired(token)) {
-            setError('Session expired. Please log in again.');
-            window.location.href = '/login';
-            return;
+    if (!token || isTokenExpired(token)) {
+        setError('Session expired. Please log in again.');
+        window.location.href = '/login';
+        return;
+    }
+
+    const headers: Record<string, string> = {};
+    headers["Authorization"] = `Bearer ${token}`;
+    console.log("Token sent:", token);
+
+    try {
+        const response = await fetch('http://localhost:8080/api/bouquets', {
+            headers: headers,
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch bouquets.');
         }
 
-        try {
-            const response = await fetch('http://localhost:8080/api/bouquets', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch bouquets.');
-            }
-
-            const data = await response.json();
-            setBouquets(data);
-        } catch (error) {
-            console.error('Error fetching bouquets:', error);
-            setError('Could not fetch bouquets.');
-        }
-    };
+        const data = await response.json();
+        setBouquets(data);
+    } catch (error) {
+        console.error('Error fetching bouquets:', error);
+        setError('Could not fetch bouquets.');
+    }
+};
 
     return (
         <>
@@ -108,4 +110,3 @@ const ShopPage: React.FC = () => {
 };
 
 export default ShopPage;
-
