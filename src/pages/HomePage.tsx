@@ -1,22 +1,26 @@
 import  { useEffect } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/shop.css';
 
 const HomePage = () => {
     useEffect(() => {
         const token = localStorage.getItem("jwtToken"); // Retrieve token from localStorage
-        fetch("http://localhost:8080/api/protected-route", {
-            method: "GET",
+        axios.get("/api/protected-route", {
             headers: {
-                "Authorization": `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
+            .then(response => {
+                console.log(response.data);
             })
             .catch(error => {
-                console.error("Error:", error);
+                if (error.response && error.response.status === 401) {
+                    // Handle expired or invalid token (redirect to login page)
+                    window.location.href = "/login";
+                } else {
+                    console.error("Error:", error);
+                }
             });
     }, []);
 
