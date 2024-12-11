@@ -17,9 +17,9 @@ const UserDashboard = () => {
                 const response = await fetch('http://localhost:8080/api/user/profile', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
                         'Content-Type': 'application/json',
-                    },
+                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming the token is stored in localStorage
+                    }
                 });
 
                 if (!response.ok) {
@@ -70,7 +70,7 @@ const UserDashboard = () => {
                     <a href="/cart" className="bg-medium-pink">Go to Cart</a>
                 </div>
                 <div>
-                    <h2>Go to Shop</h2>
+                    <h2>Go to Shop</h2>t
                     <a href="/shop" className="bg-dark-pink">Go to Shop</a>
                 </div>
             </div>
