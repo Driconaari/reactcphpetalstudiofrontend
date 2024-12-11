@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import BouquetCard from '../components/BouquetCard';
+import Navbar from '../components/NavBar';
+import { useCart } from '../contexts/CartContext';
+import { isTokenValid } from '../utils/auth';
 
 interface Bouquet {
     id: number;
@@ -12,139 +16,88 @@ interface Bouquet {
 
 const ShopPage: React.FC = () => {
     const [bouquets, setBouquets] = useState<Bouquet[]>([]);
-    const [cartCount, setCartCount] = useState(0);
+    const [error, setError] = useState<string | null>(null);
+    const { updateCartCount } = useCart();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (!isTokenValid()) {
+            console.error('Invalid or expired JWT token. Redirecting to login.');
+            navigate('/login');
+            return;
+        }
+
         fetchBouquets();
         updateCartCount();
     }, []);
 
     const fetchBouquets = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/bouquets');
+            const response = await fetch('http://localhost:8080/api/bouquets', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
+                },
+            });
+
             if (!response.ok) {
-                throw new Error('Failed to fetch bouquets');
+                if (response.status === 403) {
+                    throw new Error('You need to be logged in to view bouquets.');
+                }
+                throw new Error('Failed to fetch bouquets. Please try again.');
             }
+
             const data = await response.json();
             setBouquets(data);
+            setError(null);
         } catch (error) {
             console.error('Error fetching bouquets:', error);
-        }
-    };
-
-    const updateCartCount = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/shop/cart/count', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch cart count');
-            }
-            const data = await response.json();
-            setCartCount(data.count);
-        } catch (error) {
-            console.error('Error fetching cart count:', error);
-        }
-    };
-
-    const handleAddToCart = async (bouquetId: number) => {
-        try {
-            const response = await fetch('http://localhost:8080/api/cart/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
-                },
-                body: JSON.stringify({
-                    bouquetId: bouquetId,
-                    quantity: 1,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to add item to cart');
-            }
-
-            await response.json();
-            alert('Item added to cart successfully!');
-            updateCartCount();
-        } catch (error) {
-            console.error('Error adding item to cart:', error);
-            alert('Error adding item to cart');
+            setError(error instanceof Error ? error.message : 'An unexpected error occurred');
         }
     };
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light">
-                <div className="container">
-                    <Link className="navbar-brand" to="/">CPH Petal Studio</Link>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav ms-auto">
-                            <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
-                            <li className="nav-item"><Link className="nav-link" to="/register">Register</Link></li>
-                            <li className="nav-item"><Link className="nav-link" to="/logout">Logout</Link></li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/cart">Cart (<span className="cart-count">{cartCount}</span>)</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
+            <Navbar />
             <div className="container mt-5">
                 <div className="row">
-                    {/* Sidebar for Filters */}
                     <div className="col-lg-3">
-                        <div className="filter-section">
-                            <h2>Filter Bouquets</h2>
-                            <div className="filter-buttons">
-                                <Link to="/shop?maxPrice=50" className="filter-button">Under $50</Link>
-                                <Link to="/shop?minPrice=50" className="filter-button">Over $50</Link>
-                            </div>
-                            <h2>Color Scheme</h2>
-                            <div className="filter-buttons">
-                                <Link to="/shop?category=pink-red" className="filter-button">Pink/Red Nuances</Link>
-                                <Link to="/shop?category=multicolor" className="filter-button">Multicolored</Link>
+                        {/* Sidebar for Filters */}
+                        <div className="card mb-4">
+                            <div className="card-body">
+                                <h2 className="card-title h5">Filter Bouquets</h2>
+                                <div className="d-grid gap-2">
+                                    <Link to="/shop?maxPrice=50" className="btn btn-outline-primary">Under $50</Link>
+                                    <Link to="/shop?minPrice=50" className="btn btn-outline-primary">Over $50</Link>
+                                </div>
+                                <h2 className="card-title h5 mt-4">Color Scheme</h2>
+                                <div className="d-grid gap-2">
+                                    <Link to="/shop?category=pink-red" className="btn btn-outline-primary">Pink/Red Nuances</Link>
+                                    <Link to="/shop?category=multicolor" className="btn btn-outline-primary">Multicolored</Link>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Product Listing */}
                     <div className="col-lg-9">
-                        <div className="row" id="bouquet-list">
-                            {bouquets.map(bouquet => (
-                                <div key={bouquet.id} className="col-md-4 mb-4">
-                                    <div className="card product-card position-relative">
-                                        {bouquet.featured && <span className="most-popular">Most Popular</span>}
-                                        <img src={bouquet.imageUrl} className="card-img-top" alt={bouquet.name} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{bouquet.name}</h5>
-                                            <p className="card-text">{bouquet.description}</p>
-                                            <p className="card-text text-success">${bouquet.price.toFixed(2)}</p>
-                                            <button
-                                                className="btn btn-primary add-to-cart"
-                                                onClick={() => handleAddToCart(bouquet.id)}
-                                            >
-                                                Add to Cart
-                                            </button>
-                                        </div>
+                        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+                        {bouquets.length > 0 ? (
+                            <div className="row" id="bouquet-list">
+                                {bouquets.map(bouquet => (
+                                    <div key={bouquet.id} className="col-md-4 mb-4">
+                                        <BouquetCard bouquet={bouquet} />
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p>No bouquets available at the moment.</p>
+                        )}
                     </div>
                 </div>
             </div>
-
-            <footer className="text-center mt-4">
-                &copy; 2024 CPH Petal Studio. <Link to="/privacy">Privacy Policy</Link> | <Link to="/terms">Terms of Service</Link>
+            <footer className="text-center mt-4 py-4 bg-light">
+                <div className="container">
+                    <p>&copy; 2024 CPH Petal Studio. <Link to="/privacy">Privacy Policy</Link> | <Link to="/terms">Terms of Service</Link></p>
+                </div>
             </footer>
         </>
     );

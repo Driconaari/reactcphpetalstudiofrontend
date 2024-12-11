@@ -30,6 +30,8 @@ interface CartProviderProps {
     children: ReactNode;
 }
 
+
+
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [cartCount, setCartCount] = useState(0);

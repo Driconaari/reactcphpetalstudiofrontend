@@ -9,6 +9,7 @@ const LoginPage: React.FC = () => {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
+
         try {
             const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
@@ -25,7 +26,7 @@ const LoginPage: React.FC = () => {
             const data = await response.json();
             localStorage.setItem('token', data.token);
             navigate('/dashboard');
-        } catch (err) {
+        } catch  {
             setError('Invalid username or password');
         }
     };
@@ -56,4 +57,3 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
-
